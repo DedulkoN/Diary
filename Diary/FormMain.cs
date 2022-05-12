@@ -116,5 +116,10 @@ namespace Diary
                 panelLeft.Visible = true;
             }
         }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            classData.SaveData();
+        }
     }
 }

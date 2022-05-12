@@ -24,26 +24,38 @@ namespace Diary.Classes
             try
             {
                 XmlSerializer xmlSerializer = new (typeof(ClassData));
-                using (FileStream fs = new ("Data.bin", FileMode.OpenOrCreate))
+               
+                using (FileStream fs = new ("Data.bin", FileMode.Open))
                 {
                     var temp = xmlSerializer.Deserialize(fs) as ClassData;
                     this.diaryRecs = temp.diaryRecs;
 
                 }
+                this.Decrypt();
+               
                 return true;
+                
             }
             catch { return false; }
         }
 
         public bool SaveData()
         {
-            XmlSerializer xmlSerializer = new (typeof(ClassData));
-            using (FileStream fs = new("Data.bin", FileMode.OpenOrCreate))
+            try
             {
-                xmlSerializer.Serialize(fs, this);
-               
+                XmlSerializer xmlSerializer = new(typeof(ClassData));
+                this.Encrypt();
+                File.Delete("Data.bin");
+                using (FileStream fs = new("Data.bin", FileMode.CreateNew))
+                {
+                    xmlSerializer.Serialize(fs, this);
+
+                }
+                this.Decrypt();
+                
+                return true;
             }
-            return true;
+            catch { return false; }
         }
 
         public bool Decrypt()
