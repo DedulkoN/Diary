@@ -11,11 +11,23 @@ using Diary.Classes;
 
 namespace Diary
 {
+    /// <summary>
+    /// Главная форма
+    /// </summary>
     public partial class FormMain : Form
     {
+        /// <summary>
+        /// Хранилище данных
+        /// </summary>
         ClassData classData = new();
-        
+        /// <summary>
+        /// Активная дата
+        /// </summary>
         private string currentDate;
+
+        /// <summary>
+        /// Конструктор
+        /// </summary>
         public FormMain()
         {
             InitializeComponent();
@@ -23,6 +35,11 @@ namespace Diary
             toolStripButtonRefresh_Click(new object(), new EventArgs());
         }
 
+        /// <summary>
+        /// Обработчик кнопки "Обновить", обновляет данные на форме
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
             monthCalendarMain.RemoveAllBoldedDates();
@@ -36,7 +53,11 @@ namespace Diary
             monthCalendarMain.UpdateBoldedDates();
             dataGridViewDates.Sort(dataGridViewDates.Columns[0], ListSortDirection.Ascending);
         }
-
+        /// <summary>
+        /// Кнопка Добавления новой записи
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripButtonNew_Click(object sender, EventArgs e)
         {
             FormAddDate formAddDate = new();
@@ -47,7 +68,11 @@ namespace Diary
             }
 
         }
-
+        /// <summary>
+        /// Обработчик события изменения статуса выделения ячейки таблицы-списка с датами
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridViewDates_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
             if (e.StateChanged == DataGridViewElementStates.Selected)
@@ -83,7 +108,11 @@ namespace Diary
         }
 
 
-
+        /// <summary>
+        /// Обработчик события смены даты на календаре
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void monthCalendarMain_DateChanged(object sender, DateRangeEventArgs e)
         {
             dataGridViewDates.ClearSelection();
@@ -96,6 +125,11 @@ namespace Diary
 
         }
 
+        /// <summary>
+        /// Обработчик кнопки "Сохранить"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripButtonSave_Click(object sender, EventArgs e)
         {
             ClassDiaryRec rec = classData.diaryRecs.Where(t => t.Date == currentDate).First();
@@ -103,6 +137,11 @@ namespace Diary
             classData.SaveData();
         }
 
+        /// <summary>
+        /// Скрытие/отображение левой панели
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonToLeftPanel_Click(object sender, EventArgs e)
         {
             if(buttonToLeftPanel.Text=="<")
@@ -116,7 +155,11 @@ namespace Diary
                 panelLeft.Visible = true;
             }
         }
-
+        /// <summary>
+        /// Обработчик события закрытия формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             classData.SaveData();

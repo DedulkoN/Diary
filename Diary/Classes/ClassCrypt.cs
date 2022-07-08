@@ -9,6 +9,9 @@ using System.Security.Cryptography;
 
 namespace Diary.Classes
 {
+    /// <summary>
+    /// Класс шифрования. Алгоритм - Rijndael
+    /// </summary>
     class ClassCrypt
     {
         /// <summary>
@@ -83,9 +86,9 @@ namespace Diary.Classes
         }
 
         /// <summary>
-        /// Шифрование списка
+        /// Шифрование массива
         /// </summary>
-        /// <param name="crypts">Список объектов с интерфейсом ICrypt</param>
+        /// <param name="crypts">Массив объектов с интерфейсом ICrypt</param>
         public static void Encrypt(ICrypt[] crypts)
         {
             foreach (ICrypt crypt in crypts)
@@ -93,9 +96,9 @@ namespace Diary.Classes
         }
 
         /// <summary>
-        /// Дешифрование списка
+        /// Дешифрование массива
         /// </summary>
-        /// <param name="crypts">Список объектов с интерфейсом ICrypt</param>
+        /// <param name="crypts">Массив объектов с интерфейсом ICrypt</param>
         public static void Decrypt(ICrypt[] crypts)
         {
             foreach (ICrypt crypt in crypts)
